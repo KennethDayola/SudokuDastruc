@@ -2,7 +2,7 @@ package Main;
 
 import java.util.Scanner;
 
-public class Sudoku {
+public class Main {
     public static final int WIDTH_DEFAULT = 1280;
     public static final int HEIGHT_DEFAULT = 720;
     private Panel panel;
@@ -12,9 +12,9 @@ public class Sudoku {
         MENU, GAME
     }
 
-    public static STATE state = STATE.MENU;  // Initial state is MENU
+    public static STATE state = STATE.GAME;
 
-    public Sudoku() {
+    public Main() {
         panel = new Panel(this);
         frame = new Frame(panel);
         int i;
@@ -42,8 +42,11 @@ public class Sudoku {
     public STATE getState() {
         return state;
     }
+    public void setState(STATE newState) {
+        state = newState;
+    }
 
     public static void main(String[] args) {
-        new Sudoku();
+        new Main();
     }
 }

@@ -8,7 +8,7 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 public class MenuPanel  {
 
-    public static Rectangle playButton = new Rectangle(Sudoku.WIDTH_DEFAULT / 2 + 120, 120, 150, 100);
+    public static Rectangle playButton = new Rectangle(Main.WIDTH_DEFAULT / 2 + 120, 120, 150, 100);
 
     public MenuPanel() {
         menuStart();
@@ -22,7 +22,7 @@ public class MenuPanel  {
 
     public static void drawMenu(Graphics g) {
 
-        if (Sudoku.state == Sudoku.STATE.MENU) {
+        if (Main.state == Main.STATE.MENU) {
             Graphics2D g2d = (Graphics2D) g;
             g.setFont(new Font("Arial", Font.BOLD, 16));
             g.setColor(Color.BLACK);
