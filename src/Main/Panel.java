@@ -12,7 +12,7 @@ public class Panel extends JPanel {
 
     private Main main;
     private JLabel aboveContentLabel;
-    private Rectangle playHitbox, menuHitbox, quitHitbox;
+    private Rectangle playHitbox, menuHitbox, quitHitbox, playingRect;
 
     public Panel(Main main) {
         this.main = main;
@@ -36,6 +36,7 @@ public class Panel extends JPanel {
         playHitbox = new Rectangle(169, 222, 200, 65);
         menuHitbox = new Rectangle(169, 318, 200, 65);
         quitHitbox = new Rectangle(169, 425, 200, 65);
+        playingRect = new Rectangle(611, 121, 408, 510);
     }
 
     @Override
@@ -51,36 +52,39 @@ public class Panel extends JPanel {
             Image background = backgroundIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 
-            // Define the rectangle for the Sudoku grid
-            int gridX = 300; // Adjust the X-coordinate of the grid
-            int gridY = 200; // Adjust the Y-coordinate of the grid
-            int gridWidth = 350; // Adjust the width of the grid
-            int gridHeight = 400; // Adjust the height of the grid
-
-            // Set the color to bright red
-            g2d.setColor(Color.RED);
-
-            // Draw Sudoku grid within the specified rectangle
-            int gridSize = 9; // Change this to adjust the size of the grid
-            int cellSize = gridWidth / gridSize;
-
-            // Draw grid lines
-            for (int i = 0; i <= gridSize; i++) {
-                g2d.drawLine(gridX + i * cellSize, gridY, gridX + i * cellSize, gridY + gridHeight);
-                g2d.drawLine(gridX, gridY + i * cellSize, gridX + gridWidth, gridY + i * cellSize);
-            }
-
-            // Reset the color to the default
-            g2d.setColor(Color.BLACK);
-
+            // Draw the outer rectangles
             g2d.draw(playHitbox);
             g2d.draw(menuHitbox);
             g2d.draw(quitHitbox);
+            g2d.setColor(Color.RED);
+            g2d.draw(playingRect);
+
+            // Draw a 6x6 grid within playingRect
+            int gridSize = 6;
+            int playingRectWidth = playingRect.width;
+            int playingRectHeight = playingRect.height;
+            int cellSizeX = playingRectWidth / gridSize;
+            int cellSizeY = playingRectHeight / gridSize;
+
+            g2d.setColor(Color.RED);
+            for (int i = 0; i <= gridSize; i++) {
+                int x = playingRect.x + i * cellSizeX;
+                int y = playingRect.y + i * cellSizeY;
+
+                // Draw vertical grid lines
+                g2d.drawLine(x, playingRect.y, x, playingRect.y + playingRectHeight);
+
+                // Draw horizontal grid lines
+                g2d.drawLine(playingRect.x, y, playingRect.x + playingRectWidth, y);
+            }
+
             // Add game-specific drawing logic here
         } else if (main.getState() == Main.STATE.MENU) {
             MenuPanel.drawMenu(g);
         }
     }
+
+
     public Main getMain() {
         return main;
     }
