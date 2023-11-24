@@ -13,51 +13,6 @@ public class Sudocode {
             {1, 0, 0, 0, 3, 2}
     };
 
-    private static void play6x6(Scanner scanner) {
-        while (true) {
-            printBoard6x6();
-            System.out.print("Enter row number (1-6) or 0 to quit: ");
-            int row = scanner.nextInt();
-            if (row == 0) {
-                break;
-            }
-            System.out.print("Enter column number (1-6): ");
-            int col = scanner.nextInt();
-            System.out.print("Enter a number (1-6) or 0 to clear: ");
-            int num = scanner.nextInt();
-            if (isValid6x6(row - 1, col - 1, num)) {
-                board6x6[row - 1][col - 1] = num;
-            } else {
-                System.out.println("Invalid move! Try again.");
-            }
-            if (isSolved6x6()) {
-                System.out.println("Congratulations, you solved the 6x6 puzzle!");
-                break;
-            }
-        }
-    }
-
-
-
-    private static void printBoard6x6() {
-        System.out.println("-------------------");
-        for (int i = 0; i < 6; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < 6; j++) {
-                System.out.print(board6x6[i][j] + " ");
-                if ((j + 1) % 3 == 0) {
-                    System.out.print("| ");
-                }
-            }
-            System.out.println();
-            if ((i + 1) % 2 == 0) {
-                System.out.println("-------------------");
-            }
-        }
-    }
-
-
-
     static boolean isValid6x6(int row, int col, int num) {
         // Check if the number already exists in the same row
         for (int j = 0; j < 6; j++) {
@@ -86,7 +41,7 @@ public class Sudocode {
 
         return true;
     }
-    private static boolean isSolved6x6() {
+    static boolean isSolved6x6() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
                 if (board6x6[i][j] == 0) {

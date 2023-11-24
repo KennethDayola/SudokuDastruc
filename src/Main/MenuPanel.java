@@ -1,10 +1,8 @@
 package Main;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import OtherComponents.MouseInputs;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+import java.awt.*;
 
 public class MenuPanel  {
 
@@ -12,6 +10,9 @@ public class MenuPanel  {
 
     public MenuPanel() {
         menuStart();
+        MouseInputs mouseInputs = new MouseInputs(p, this);
+
+        p.addMouseListener(mouseInputs);
     }
 
     private Panel p = new Panel();
@@ -27,11 +28,14 @@ public class MenuPanel  {
             g.setFont(new Font("Arial", Font.BOLD, 16));
             g.setColor(Color.BLACK);
 
-            g.drawString("1. Start Game", 50, 50);
+            g.drawString("1. Start Game", Main.WIDTH_DEFAULT / 2 + 120, 140);
             g.drawString("2. Options", 50, 80);
             g.drawString("3. Exit", 50, 110);
 
             g2d.draw(playButton);
         }
+    }
+    public Rectangle getPlayButton(){
+        return playButton;
     }
 }

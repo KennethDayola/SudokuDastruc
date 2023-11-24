@@ -9,10 +9,10 @@ public class Main {
     private Frame frame;
 
     public enum STATE {
-        MENU, GAME
+        MENU, GAME, COMPLETE
     }
 
-    public static STATE state = STATE.GAME;
+    public static STATE state = STATE.MENU;
 
     public Main() {
         panel = new Panel(this);
@@ -33,7 +33,6 @@ public class Main {
         }
     }
 
-    // Method to update the game state based on user actions
     public void updateState(STATE newState) {
         this.state = newState;
         panel.repaint();  // Repaint the panel when the state changes
@@ -41,9 +40,6 @@ public class Main {
 
     public STATE getState() {
         return state;
-    }
-    public void setState(STATE newState) {
-        state = newState;
     }
 
     public static void main(String[] args) {

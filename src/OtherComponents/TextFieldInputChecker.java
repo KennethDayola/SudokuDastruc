@@ -7,8 +7,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 
-import static OtherComponents.Sudocode.isValid6x6;
-
 public class TextFieldInputChecker implements DocumentListener {
 
     private int row;
