@@ -36,7 +36,7 @@ public class Grid {
 
                     // Draw the number from the board array
                     String number = Integer.toString(board[i][j]);
-                    g2d.drawString(number, x - g2d.getFontMetrics().stringWidth(number) / 2, y);
+                    g2d.drawString(number, x - g2d.getFontMetrics().stringWidth(number) / 2, y + 5);
                 } else {
                     // Draw placeholder text field
                     JTextField textField = new JTextField();

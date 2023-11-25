@@ -2,40 +2,45 @@ package Main;
 
 import OtherComponents.MouseInputs;
 
+import javax.swing.ImageIcon;
 import java.awt.*;
 
-public class MenuPanel  {
+public class MenuPanel {
 
-    public static Rectangle playButton = new Rectangle(Main.WIDTH_DEFAULT / 2 + 120, 120, 150, 100);
+    private static final Rectangle playButton = new Rectangle((int) (Main.WIDTH_DEFAULT / 2.45), 420, 290, 117);
+    private static final Rectangle quitButton = new Rectangle((int) (Main.WIDTH_DEFAULT * 0.705), 420, 290, 117);
+    private final Panel p;
+    private Image gifImage;
 
-    public MenuPanel() {
+    public MenuPanel(Panel panel) {
+        this.p = panel;
         menuStart();
         MouseInputs mouseInputs = new MouseInputs(p, this);
 
         p.addMouseListener(mouseInputs);
     }
 
-    private Panel p = new Panel();
-
-    void menuStart() {
+    private void menuStart() {
         p.setFocusable(true);
     }
 
-    public static void drawMenu(Graphics g) {
-
+    public void drawMenu(Graphics g) {
         if (Main.state == Main.STATE.MENU) {
             Graphics2D g2d = (Graphics2D) g;
-            g.setFont(new Font("Arial", Font.BOLD, 16));
-            g.setColor(Color.BLACK);
 
-            g.drawString("1. Start Game", Main.WIDTH_DEFAULT / 2 + 120, 140);
-            g.drawString("2. Options", 50, 80);
-            g.drawString("3. Exit", 50, 110);
+            g.fillRect(0, 0, p.getWidth(), p.getHeight());
 
-            g2d.draw(playButton);
+            ImageIcon gifIcon = new ImageIcon(MenuPanel.class.getResource("/res/sudokuMenu.gif"));
+            gifImage = gifIcon.getImage();
+            g.drawImage(gifImage,0,0,null);
+
         }
     }
-    public Rectangle getPlayButton(){
+
+    public Rectangle getPlayButton() {
         return playButton;
+    }
+    public Rectangle getQuitButton(){
+        return quitButton;
     }
 }

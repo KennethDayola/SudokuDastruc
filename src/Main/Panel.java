@@ -23,7 +23,7 @@ public class Panel extends JPanel {
         this.setPreferredSize(new java.awt.Dimension(WIDTH_DEFAULT, HEIGHT_DEFAULT));
         this.textFields = new ArrayList<>();
         initComponents();
-        MouseInputs mouseInputs = new MouseInputs(this, new MenuPanel());
+        MouseInputs mouseInputs = new MouseInputs(this, new MenuPanel(this));
 
         addMouseListener(mouseInputs);
     }
@@ -46,6 +46,7 @@ public class Panel extends JPanel {
     }
 
     private void drawComponents(Graphics g) {
+        MenuPanel menuPanel = new MenuPanel(this);
         if (main.getState() == Main.STATE.GAME) {
             Graphics2D g2d = (Graphics2D) g;
             ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/background.png"));
@@ -60,7 +61,7 @@ public class Panel extends JPanel {
         } else if (main.getState() == Main.STATE.MENU) {
             textFields.forEach(this::remove);
             textFields.clear();
-            MenuPanel.drawMenu(g);
+            menuPanel.drawMenu(g);
         }
         else if(main.getState() == Main.STATE.COMPLETE){
             textFields.forEach(this::remove);

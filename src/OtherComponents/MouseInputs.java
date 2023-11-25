@@ -35,6 +35,9 @@ public class MouseInputs implements MouseListener {
             if (menuPanel.getPlayButton().contains(e.getPoint())) {
                 panel.getMain().updateState(Main.STATE.GAME);
             }
+            if (menuPanel.getQuitButton().contains(e.getPoint())) {
+                System.exit(0);
+            }
         }
     }
     @Override
