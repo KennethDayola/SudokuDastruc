@@ -17,6 +17,7 @@ public class Panel extends JPanel {
     private Main main;
     private Rectangle retryHitbox, menuHitbox, quitHitbox, playingRect;
     public List<JTextField> textFields;
+    private MenuPanel menuPanel;
 
     public Panel(Main main) {
         this.main = main;
@@ -24,12 +25,8 @@ public class Panel extends JPanel {
         this.textFields = new ArrayList<>();
         initComponents();
         MouseInputs mouseInputs = new MouseInputs(this, new MenuPanel(this));
-
+        this.menuPanel = new MenuPanel(this);
         addMouseListener(mouseInputs);
-    }
-
-    public Panel() {
-
     }
 
     private void initComponents() {
@@ -46,7 +43,6 @@ public class Panel extends JPanel {
     }
 
     private void drawComponents(Graphics g) {
-        MenuPanel menuPanel = new MenuPanel(this);
         if (main.getState() == Main.STATE.GAME) {
             Graphics2D g2d = (Graphics2D) g;
             ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/background.png"));
@@ -69,7 +65,9 @@ public class Panel extends JPanel {
             g.drawString("1. COMPLETED!", 50, 50);
         }
     }
-
+    public void clearTextFields() {
+        textFields.forEach(field -> field.setText(""));
+    }
     public Main getMain() {
         return main;
     }
@@ -85,5 +83,9 @@ public class Panel extends JPanel {
 
     public Rectangle getQuitHitbox() {
         return quitHitbox;
+    }
+    // Add a method to get the MenuPanel instance
+    public MenuPanel getMenuPanel() {
+        return menuPanel;
     }
 }

@@ -1,5 +1,6 @@
 package Main;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
@@ -35,7 +36,10 @@ public class Main {
 
     public void updateState(STATE newState) {
         this.state = newState;
-        panel.repaint();  // Repaint the panel when the state changes
+        SwingUtilities.invokeLater(() -> {
+            panel.revalidate();
+            panel.repaint();
+        });
     }
 
     public STATE getState() {

@@ -2,45 +2,77 @@ package Main;
 
 import OtherComponents.MouseInputs;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuPanel {
 
     private static final Rectangle playButton = new Rectangle((int) (Main.WIDTH_DEFAULT / 2.45), 420, 290, 117);
     private static final Rectangle quitButton = new Rectangle((int) (Main.WIDTH_DEFAULT * 0.705), 420, 290, 117);
-    private final Panel p;
-    private Image gifImage;
+    private static Panel p;
+
+    // New variables for GIF
+    private static JLabel gifLabel;
+    private static Timer gifTimer;
+
+
 
     public MenuPanel(Panel panel) {
-        this.p = panel;
+        p = panel;
         menuStart();
         MouseInputs mouseInputs = new MouseInputs(p, this);
 
         p.addMouseListener(mouseInputs);
+
+        initGifTimer();
     }
 
     private void menuStart() {
         p.setFocusable(true);
     }
 
-    public void drawMenu(Graphics g) {
+    public static void drawMenu(Graphics g) {
         if (Main.state == Main.STATE.MENU) {
             Graphics2D g2d = (Graphics2D) g;
 
-            g.fillRect(0, 0, p.getWidth(), p.getHeight());
+            g2d.setColor(Color.BLACK);
+            g2d.fillRect(0, 0, p.getWidth(), p.getHeight());
 
-            ImageIcon gifIcon = new ImageIcon(MenuPanel.class.getResource("/res/sudokuMenu.gif"));
-            gifImage = gifIcon.getImage();
-            g.drawImage(gifImage,0,0,null);
-
+            if (gifLabel != null) {
+                gifLabel.setBounds(0, 0, p.getWidth(), p.getHeight());
+                p.add(gifLabel);
+            }
         }
     }
 
     public Rectangle getPlayButton() {
         return playButton;
     }
-    public Rectangle getQuitButton(){
+
+    public Rectangle getQuitButton() {
         return quitButton;
+    }
+
+    public static void stopDrawingMenu() {
+
+        if (gifTimer != null) {
+            gifTimer.stop();
+        }
+    }
+
+    private void initGifTimer() {
+        gifLabel = new JLabel();
+        gifTimer = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ImageIcon gifIcon = new ImageIcon(MenuPanel.class.getResource("/res/sudokuMenu.gif"));
+                gifLabel.setIcon(gifIcon);
+            }
+        });
+
+        gifTimer.start();
     }
 }
