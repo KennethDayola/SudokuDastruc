@@ -1,5 +1,3 @@
-package OtherComponents;
-
 import java.util.Scanner;
 
 public class Sudocode {

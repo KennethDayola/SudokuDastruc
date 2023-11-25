@@ -1,12 +1,6 @@
-package OtherComponents;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
-
-import Main.Main;
-import Main.Panel;
-import Main.MenuPanel;
 
 public class MouseInputs implements MouseListener {
 

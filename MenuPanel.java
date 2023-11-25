@@ -1,7 +1,3 @@
-package Main;
-
-import OtherComponents.MouseInputs;
-
 import java.awt.*;
 
 public class MenuPanel  {

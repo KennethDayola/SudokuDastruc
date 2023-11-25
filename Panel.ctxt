@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Panel
+comment1.params=main
+comment1.target=Panel(Main)
+comment10.params=
+comment10.target=java.awt.Rectangle\ getQuitHitbox()
+comment2.params=
+comment2.target=Panel()
+comment3.params=
+comment3.target=void\ initComponents()
+comment4.params=g
+comment4.target=void\ paintComponent(java.awt.Graphics)
+comment5.params=g
+comment5.target=void\ drawComponents(java.awt.Graphics)
+comment6.params=
+comment6.target=Main\ getMain()
+comment7.params=
+comment7.target=java.awt.Rectangle\ getRetryHitbox()
+comment8.params=
+comment8.target=java.awt.Rectangle\ getMenuHitbox()
+comment9.params=
+comment9.target=java.awt.Rectangle\ getPlayingRect()
+numComments=11
