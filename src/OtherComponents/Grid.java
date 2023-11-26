@@ -80,27 +80,21 @@ public class Grid {
                 }
             }
         }
-        // Reset font and color for the remaining drawing
-        g2d.setFont(new Font("Arial", Font.PLAIN, 12)); // Set default font
-        g2d.setColor(Color.BLACK); // Set default color
+        g2d.setFont(new Font("Arial", Font.PLAIN, 12));
+        g2d.setColor(Color.BLACK);
 
-        // Add game-specific drawing logic here
 
-        // Draw the grid on top with a bolder stroke
-        g2d.setColor(new Color(139, 69, 19)); // Brown color
-        g2d.setStroke(new BasicStroke(2.0f)); // Set thicker stroke
+        g2d.setColor(new Color(139, 69, 19));
+        g2d.setStroke(new BasicStroke(2.0f));
         for (int i = 0; i <= gridSize; i++) {
             int x = panel.getPlayingRect().x + i * cellSizeX;
             int y = panel.getPlayingRect().y + i * cellSizeY;
 
-            // Draw vertical grid lines
             g2d.drawLine(x, panel.getPlayingRect().y, x, panel.getPlayingRect().y + playingRectHeight);
 
-            // Draw horizontal grid lines
             g2d.drawLine(panel.getPlayingRect().x, y, panel.getPlayingRect().x + playingRectWidth, y);
         }
 
-        // Reset stroke for subsequent drawings
         g2d.setStroke(new BasicStroke(1.0f));
     }
 }

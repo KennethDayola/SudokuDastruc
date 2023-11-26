@@ -47,7 +47,7 @@ public class MenuPanel {
         }
     }
 
-    public Rectangle getPlayButton() {
+    public static Rectangle getPlayButton() {
         return playButton;
     }
 

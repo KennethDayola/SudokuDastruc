@@ -32,9 +32,7 @@ public class TextFieldInputChecker implements DocumentListener {
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
-        // Plain text components do not fire these events
-    }
+    public void changedUpdate(DocumentEvent e) {}
 
     private void updateBoard() {
         Document document = textField.getDocument();

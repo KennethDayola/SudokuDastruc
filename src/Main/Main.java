@@ -1,8 +1,5 @@
 package Main;
 
-import javax.swing.*;
-import java.util.Scanner;
-
 public class Main {
     public static final int WIDTH_DEFAULT = 1280;
     public static final int HEIGHT_DEFAULT = 720;
@@ -18,28 +15,12 @@ public class Main {
     public Main() {
         panel = new Panel(this);
         frame = new Frame(panel);
-        int i;
-        Scanner sc = new Scanner(System.in);
-
-        i = sc.nextInt();
-        switch (i) {
-            case 1:
-                state = STATE.GAME;
-                System.out.println("aaa");
-                panel.repaint();
-                break;
-            case 2:
-                state = STATE.MENU;
-                break;
-        }
     }
 
     public void updateState(STATE newState) {
         this.state = newState;
-        SwingUtilities.invokeLater(() -> {
-            panel.revalidate();
-            panel.repaint();
-        });
+        panel.revalidate();
+        panel.repaint();
     }
 
     public STATE getState() {

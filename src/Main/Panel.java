@@ -2,6 +2,7 @@ package Main;
 
 import OtherComponents.Grid;
 import OtherComponents.MouseInputs;
+import OtherComponents.MusicMethods;
 import OtherComponents.Sudocode;
 
 import javax.swing.*;
@@ -19,15 +20,20 @@ public class Panel extends JPanel {
     public List<JTextField> textFields;
     private MenuPanel menuPanel;
 
+    public static MusicMethods bgm = new MusicMethods();
+
     public Panel(Main main) {
         this.main = main;
         this.setPreferredSize(new java.awt.Dimension(WIDTH_DEFAULT, HEIGHT_DEFAULT));
         this.textFields = new ArrayList<>();
+        this.setDoubleBuffered(true);
         initComponents();
         MouseInputs mouseInputs = new MouseInputs(this, new MenuPanel(this));
         this.menuPanel = new MenuPanel(this);
         addMouseListener(mouseInputs);
+        addMouseMotionListener(mouseInputs);
     }
+
 
     private void initComponents() {
         retryHitbox = new Rectangle(169, 222, 200, 65);
@@ -52,9 +58,12 @@ public class Panel extends JPanel {
             g2d.setColor(Color.RED);
             g2d.draw(playingRect);
 
+
+
             Grid.drawGrid(g, this, Sudocode.board6x6);
 
         } else if (main.getState() == Main.STATE.MENU) {
+            bgm.loadMusic(MusicMethods.MENU_MUSIC);
             textFields.forEach(this::remove);
             textFields.clear();
             menuPanel.drawMenu(g);
