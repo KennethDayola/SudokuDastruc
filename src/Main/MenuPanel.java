@@ -21,6 +21,7 @@ public class MenuPanel {
         p.addMouseListener(mouseInputs);
 
         ani = new Animations(p);
+        ani.initGifTimer(Animations.MENU_BG);
     }
 
     private void menuStart() {

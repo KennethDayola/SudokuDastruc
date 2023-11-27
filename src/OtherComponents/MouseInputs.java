@@ -20,10 +20,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     private MenuPanel menuPanel;
     private MusicMethods hoverSound = new MusicMethods();
     private MusicMethods clickSound = new MusicMethods();
-    private static Animations uiAni;
+
 
     public MouseInputs(Panel panel, MenuPanel menuPanel) {
-        uiAni = new Animations(panel);
         this.panel = panel;
         this.menuPanel = menuPanel;
     }
@@ -36,6 +35,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         if (Main.state == Main.STATE.GAME) {
             if (panel.getRetryHitbox().contains(e.getX(), e.getY()) || panel.getMenuHitbox().contains(e.getX(), e.getY()) || panel.getQuitHitbox().contains(e.getX(), e.getY())) {
+                panel.uiAni.isHover = true;
                 hoverSound.loadMusic(HOVER_MUSIC);
             } else {
                 hoverSound.setMusicLoaded(false);
@@ -139,8 +139,5 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    public static Animations getUIAni(){
-        return uiAni;
-    }
 }
 
