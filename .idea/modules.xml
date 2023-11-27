@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SudokuDastruc-2cc4414127ca48367a35719c0bbce015c4cb7828.iml" filepath="$PROJECT_DIR$/SudokuDastruc-2cc4414127ca48367a35719c0bbce015c4cb7828.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SudokuDastruc.iml" filepath="$PROJECT_DIR$/SudokuDastruc.iml" />
     </modules>
   </component>
 </project>

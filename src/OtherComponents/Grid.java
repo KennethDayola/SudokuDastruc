@@ -9,9 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Grid {
-
     public static void drawGrid(Graphics g, Panel panel, int[][] board) {
-
         int gridSize = 6;
         int playingRectWidth = panel.getPlayingRect().width;
         int playingRectHeight = panel.getPlayingRect().height;
@@ -82,9 +80,12 @@ public class Grid {
                 }
             }
         }
+        g2d.setFont(new Font("Arial", Font.PLAIN, 12));
+        g2d.setColor(Color.BLACK);
+
 
         g2d.setColor(new Color(139, 69, 19));
-        g2d.setStroke(new BasicStroke(0.5f));
+        g2d.setStroke(new BasicStroke(2.0f));
         for (int i = 0; i <= gridSize; i++) {
             int x = panel.getPlayingRect().x + i * cellSizeX;
             int y = panel.getPlayingRect().y + i * cellSizeY;
@@ -94,17 +95,6 @@ public class Grid {
             g2d.drawLine(panel.getPlayingRect().x, y, panel.getPlayingRect().x + playingRectWidth, y);
         }
 
-        g2d.setStroke(new BasicStroke(3.0f));
-
-        int extraLineYThird = panel.getPlayingRect().y + 2 * cellSizeY; // adjust as needed
-        g2d.drawLine(panel.getPlayingRect().x, extraLineYThird, panel.getPlayingRect().x + playingRectWidth, extraLineYThird);
-
-        int extraLineYFifth = panel.getPlayingRect().y + 4 * cellSizeY; // adjust as needed
-        g2d.drawLine(panel.getPlayingRect().x, extraLineYFifth, panel.getPlayingRect().x + playingRectWidth, extraLineYFifth);
-
-        int middleX = panel.getPlayingRect().x + gridSize / 2 * cellSizeX;
-        g2d.drawLine(middleX, panel.getPlayingRect().y, middleX, panel.getPlayingRect().y + playingRectHeight);
-
-
+        g2d.setStroke(new BasicStroke(1.0f));
     }
 }
