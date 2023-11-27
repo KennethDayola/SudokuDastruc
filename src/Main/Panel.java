@@ -29,7 +29,7 @@ public class Panel extends JPanel {
         this.menuPanel = new MenuPanel(this);
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
-        bgm.loadMusic(MusicMethods.MENU_MUSIC);
+
     }
 
     private void initComponents() {
@@ -54,6 +54,7 @@ public class Panel extends JPanel {
         g2d.fillRect(0, 0, getWidth(), getHeight()); // Fill the panel with the background color
 
         if (main.getState() == Main.STATE.GAME) {
+
             ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/background.png"));
             Image background = backgroundIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
@@ -67,12 +68,13 @@ public class Panel extends JPanel {
             }
 
         } else if (main.getState() == Main.STATE.MENU) {
+            bgm.loadMusic(MusicMethods.MENU_MUSIC);
             clearTextFields();
             menuPanel.drawMenu(g);
         } else if (main.getState() == Main.STATE.COMPLETE) {
             clearTextFields();
-            ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/completed.png"));
-            Image background = backgroundIcon.getImage();
+            ImageIcon lastBgIcon = new ImageIcon(getClass().getResource("/res/completed.png"));
+            Image background = lastBgIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
     }

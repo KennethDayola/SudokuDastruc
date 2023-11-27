@@ -102,7 +102,6 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                     }
                 };
 
-                // Execute the SwingWorker
                 worker.execute();
             }
             if (panel.getMenuPanel().getQuitButton().contains(e.getPoint())) {
