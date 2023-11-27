@@ -20,10 +20,40 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     private MenuPanel menuPanel;
     private MusicMethods hoverSound = new MusicMethods();
     private MusicMethods clickSound = new MusicMethods();
+    private static Animations uiAni;
 
     public MouseInputs(Panel panel, MenuPanel menuPanel) {
+        uiAni = new Animations(panel);
         this.panel = panel;
         this.menuPanel = menuPanel;
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if (Main.state == Main.STATE.GAME) {
+            if (panel.getRetryHitbox().contains(e.getX(), e.getY()) || panel.getMenuHitbox().contains(e.getX(), e.getY()) || panel.getQuitHitbox().contains(e.getX(), e.getY())) {
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else {
+                hoverSound.setMusicLoaded(false);
+            }
+        }
+        else if (Main.state == Main.STATE.MENU)
+            if (panel.getMenuPanel().getPlayButton().contains(e.getX(), e.getY()) || panel.getMenuPanel().getQuitButton().contains(e.getX(), e.getY())) {
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else {
+                hoverSound.setMusicLoaded(false);
+            }
+        else if (Main.state == Main.STATE.COMPLETE) {
+            if (panel.getLastMenuHitbox().contains(e.getX(), e.getY()) || panel.getLastQuitHitbox().contains(e.getX(), e.getY())){
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else {
+                hoverSound.setMusicLoaded(false);
+            }
+        }
     }
 
     @Override
@@ -63,7 +93,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
                     @Override
                     protected void done() {
-                        // This is called on the EDT after doInBackground completes
+
                         try {
                             get();  // Retrieve any exceptions that might have occurred
                         } catch (InterruptedException | ExecutionException ex) {
@@ -80,7 +110,18 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 System.exit(0);
             }
         }
+        if (Main.state == Main.STATE.COMPLETE){
+            if (panel.getLastMenuHitbox().contains(e.getPoint())) {
+                clickSound.loadMusic(CLICK_MUSIC);
+                panel.getMain().updateState(Main.STATE.MENU);
+            }
+            if (panel.getLastQuitHitbox().contains(e.getPoint())) {
+                clickSound.loadMusic(CLICK_MUSIC);
+                System.exit(0);
+            }
+        }
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
     }
@@ -98,26 +139,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mouseExited(MouseEvent e) {
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
+    public static Animations getUIAni(){
+        return uiAni;
     }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        if (Main.state == Main.STATE.GAME) {
-            if (panel.getRetryHitbox().contains(e.getX(), e.getY()) || panel.getMenuHitbox().contains(e.getX(), e.getY()) || panel.getQuitHitbox().contains(e.getX(), e.getY())) {
-                hoverSound.loadMusic(HOVER_MUSIC);
-            } else {
-                hoverSound.setMusicLoaded(false);
-            }
-        }
-        else if (Main.state == Main.STATE.MENU)
-            if (panel.getMenuPanel().getPlayButton().contains(e.getX(), e.getY()) || panel.getMenuPanel().getQuitButton().contains(e.getX(), e.getY())) {
-                hoverSound.loadMusic(HOVER_MUSIC);
-            } else {
-                hoverSound.setMusicLoaded(false);
-            }
-        }
-    }
+}
 

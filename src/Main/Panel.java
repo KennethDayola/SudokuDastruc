@@ -12,11 +12,12 @@ import java.util.List;
 
 import static Main.Main.HEIGHT_DEFAULT;
 import static Main.Main.WIDTH_DEFAULT;
+import static OtherComponents.Animations.HOVER_ANI;
 
 public class Panel extends JPanel {
 
     private Main main;
-    private Rectangle retryHitbox, menuHitbox, quitHitbox, playingRect;
+    private Rectangle retryHitbox, menuHitbox, quitHitbox, playingRect, lastMenuHitbox, lastQuitHitbox;
     public List<JTextField> textFields;
     private MenuPanel menuPanel;
 
@@ -40,6 +41,8 @@ public class Panel extends JPanel {
         menuHitbox = new Rectangle(169, 318, 200, 65);
         quitHitbox = new Rectangle(169, 425, 200, 65);
         playingRect = new Rectangle(611, 121, 408, 510);
+        lastMenuHitbox = new Rectangle(500, 398, 260, 67);
+        lastQuitHitbox = new Rectangle(560, 490, 142, 51);
     }
 
     @Override
@@ -49,18 +52,18 @@ public class Panel extends JPanel {
     }
 
     private void drawComponents(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         if (main.getState() == Main.STATE.GAME) {
-            Graphics2D g2d = (Graphics2D) g;
             ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/background.png"));
             Image background = backgroundIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+            MouseInputs.getUIAni().initGifTimer(HOVER_ANI);
 
             g2d.setColor(Color.RED);
             g2d.draw(playingRect);
 
-
-
             Grid.drawGrid(g, this, Sudocode.board6x6);
+
 
         } else if (main.getState() == Main.STATE.MENU) {
             bgm.loadMusic(MusicMethods.MENU_MUSIC);
@@ -71,9 +74,12 @@ public class Panel extends JPanel {
         else if(main.getState() == Main.STATE.COMPLETE){
             textFields.forEach(this::remove);
             textFields.clear();
-            g.drawString("1. COMPLETED!", 50, 50);
+            ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/completed.png"));
+            Image background = backgroundIcon.getImage();
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
     public void clearTextFields() {
         textFields.forEach(field -> field.setText(""));
     }
@@ -89,11 +95,15 @@ public class Panel extends JPanel {
     public Rectangle getPlayingRect() {
         return playingRect;
     }
-
     public Rectangle getQuitHitbox() {
         return quitHitbox;
     }
-    // Add a method to get the MenuPanel instance
+    public Rectangle getLastMenuHitbox(){
+        return lastMenuHitbox;
+    }
+    public Rectangle getLastQuitHitbox(){
+        return lastQuitHitbox;
+    }
     public MenuPanel getMenuPanel() {
         return menuPanel;
     }

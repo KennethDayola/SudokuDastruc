@@ -13,6 +13,9 @@ public class MusicMethods {
     private boolean musicLoaded = false;
 
     public void loadMusic(String filePath) {
+        if (filePath.equals(CLICK_MUSIC)){
+            musicLoaded = false;
+        }
         try {
             if (!musicLoaded) {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(MusicMethods.class.getResource(filePath));
@@ -37,6 +40,7 @@ public class MusicMethods {
             if (musicLoaded) {
                 setVolume(0.88f); // Set volume to 75%
                 clip.start();
+
             }
         }
     }
