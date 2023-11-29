@@ -1,5 +1,3 @@
-package OtherComponents;
-
 public class Sudocode {
 
     public static int[][] board6x6 = {

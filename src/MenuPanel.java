@@ -1,7 +1,3 @@
-package Main;
-
-import OtherComponents.MouseInputs;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -69,7 +65,7 @@ public class MenuPanel {
     }
 
     private static void loadArrowHover(){
-        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(MenuPanel.class.getResource("/res/arrow.png")));
+        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(MenuPanel.class.getResource("/arrow.png")));
         Image image = imageIcon.getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(image);
         imageLabel.setIcon(imageIcon);
@@ -88,7 +84,7 @@ public class MenuPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ImageIcon gifIcon = new ImageIcon(MenuPanel.class.getResource("/res/sudokuMenu.gif"));
+                ImageIcon gifIcon = new ImageIcon(MenuPanel.class.getResource("/sudokuMenu.gif"));
                 gifLabel.setIcon(gifIcon);
             }
         });

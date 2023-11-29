@@ -1,7 +1,3 @@
-package OtherComponents;
-
-import Main.Panel;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +10,8 @@ import java.io.InputStream;
 public class Animations {
     public boolean isHover = false;
     private static Panel p;
-    public static final String HOVER_CIRCLING = "/res/hoverAni.png";
-    public static final String INVALID_IMG = "/res/invalidImg.png";
+    public static final String HOVER_CIRCLING = "/hoverAni.png";
+    public static final String INVALID_IMG = "/invalidImg.png";
     public BufferedImage animation;
     public static BufferedImage invalidImg;
     private int currentFrame = 0;

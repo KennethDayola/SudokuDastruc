@@ -1,8 +1,3 @@
-package OtherComponents;
-
-import Main.Main;
-import Main.Panel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

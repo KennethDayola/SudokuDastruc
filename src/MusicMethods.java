@@ -1,15 +1,13 @@
-package OtherComponents;
-
 import javax.sound.sampled.*;
 
 public class MusicMethods {
 
-    public static final String MENU_MUSIC = "/res/menuMusic.wav";
-    public static final String GAME_MUSIC = "/res/gameMusic.wav";
-    public static final String SUCCESS_MUSIC = "/res/successSound.wav";
-    public static final String HOVER_MUSIC = "/res/hoverMusic.wav";
-    public static final String CLICK_MUSIC = "/res/clickMusic.wav";
-    public static final String WRONG_MUSIC = "/res/wrong.wav";
+    public static final String MENU_MUSIC = "/menuMusic.wav";
+    public static final String GAME_MUSIC = "/gameMusic.wav";
+    public static final String SUCCESS_MUSIC = "/successSound.wav";
+    public static final String HOVER_MUSIC = "/hoverMusic.wav";
+    public static final String CLICK_MUSIC = "/clickMusic.wav";
+    public static final String WRONG_MUSIC = "/wrong.wav";
 
     private Clip clip;
     private boolean musicLoaded = false;

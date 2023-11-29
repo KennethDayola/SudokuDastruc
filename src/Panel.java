@@ -1,15 +1,8 @@
-package Main;
-
-import OtherComponents.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Main.Main.HEIGHT_DEFAULT;
-import static Main.Main.WIDTH_DEFAULT;
-import static OtherComponents.Grid.removeTextFieldsAtTop;
 
 public class Panel extends JPanel {
 
@@ -25,7 +18,7 @@ public class Panel extends JPanel {
 
     public Panel(Main main) {
         this.main = main;
-        this.setPreferredSize(new java.awt.Dimension(WIDTH_DEFAULT, HEIGHT_DEFAULT));
+        this.setPreferredSize(new java.awt.Dimension(Main.WIDTH_DEFAULT, Main.HEIGHT_DEFAULT));
         this.textFields = new ArrayList<>();
         this.setDoubleBuffered(true);
         initComponents();
@@ -57,7 +50,7 @@ public class Panel extends JPanel {
     private void drawComponents(Graphics g) {
         if (main.getState() == Main.STATE.GAME) {
             Graphics2D g2d = (Graphics2D) g;
-            ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/res/background.png"));
+            ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/background.png"));
             Image background = backgroundIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 
@@ -66,7 +59,7 @@ public class Panel extends JPanel {
 
 
             Grid.drawGrid(g, this, Sudocode.board6x6);
-            removeTextFieldsAtTop(textFields, this);
+            Grid.removeTextFieldsAtTop(textFields, this);
             uiAni.showHover(g);
             Animations.drawInvalidImg(g);
 
@@ -81,7 +74,7 @@ public class Panel extends JPanel {
             this.removeAll();
             successSound.loadMusic(MusicMethods.SUCCESS_MUSIC);
             Sudocode.resetBoard();
-            ImageIcon lastBgIcon = new ImageIcon(getClass().getResource("/res/completed.png"));
+            ImageIcon lastBgIcon = new ImageIcon(getClass().getResource("/completed.png"));
             Image background = lastBgIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
             this.repaint();

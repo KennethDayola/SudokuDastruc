@@ -1,15 +1,7 @@
-package OtherComponents;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import Main.Main;
-import Main.Panel;
-import Main.MenuPanel;
-
-import static OtherComponents.MusicMethods.HOVER_MUSIC;
-import static OtherComponents.MusicMethods.CLICK_MUSIC;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
 
@@ -33,13 +25,13 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         if (Main.state == Main.STATE.GAME) {
             if (panel.getRetryHitbox().contains(e.getX(), e.getY())) {
                 panel.uiAni.setHover(true,"Retry");
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             } else if (panel.getMenuHitbox().contains(e.getX(), e.getY())) {
                 panel.uiAni.setHover(true,"Menu");
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             } else if (panel.getQuitHitbox().contains(e.getX(), e.getY())) {
                 panel.uiAni.setHover(true,"Quit");
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             } else {
                 panel.uiAni.isHover = false;
                 hoverSound.setMusicLoaded(false);
@@ -50,13 +42,13 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 MenuPanel.isHovering = false;
                 MenuPanel.isHovering = true;
                 MenuPanel.buttonType = "menuPlay";
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             }else if( panel.getMenuPanel().getQuitButton().contains(e.getX(), e.getY())){
                 menuButtonClicked = false;
                 MenuPanel.isHovering = false;
                 MenuPanel.isHovering = true;
                 MenuPanel.buttonType = "menuQuit";
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             }else {
                 menuButtonClicked = false;
                 MenuPanel.isHovering = false;
@@ -65,10 +57,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         if (Main.state == Main.STATE.COMPLETE) {
             if (panel.getLastMenuHitbox().contains(e.getX(), e.getY())) {
                 panel.uiAni.setHover(true,"lastMenu");
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             } else if(panel.getLastQuitHitbox().contains(e.getX(), e.getY())){
                 panel.uiAni.setHover(true,"lastQuit");
-                hoverSound.loadMusic(HOVER_MUSIC);
+                hoverSound.loadMusic(MusicMethods.HOVER_MUSIC);
             }else {
                 panel.uiAni.isHover = false;
                 hoverSound.setMusicLoaded(false);
@@ -80,25 +72,25 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     public void mouseClicked(MouseEvent e) {
         if (Main.state == Main.STATE.GAME) {
             if (panel.getRetryHitbox().contains(e.getPoint())) {
-                clickSound.loadMusic(CLICK_MUSIC);
+                clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
                 panel.clearTextFields();
             }
             if (panel.getMenuHitbox().contains(e.getPoint())) {
                 panel.uiAni.isHover = false;
-                clickSound.loadMusic(CLICK_MUSIC);
+                clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
                 panel.bgm.stop();
                 panel.bgm.loadMusic(MusicMethods.MENU_MUSIC);
                 panel.getMain().updateState(Main.STATE.MENU);
             }
             if (panel.getQuitHitbox().contains(e.getPoint())) {
-                clickSound.loadMusic(CLICK_MUSIC);
+                clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
                 System.exit(0);
             }
         }
         if (Main.state == Main.STATE.MENU) {
             if (panel.getMenuPanel().getPlayButton().contains(e.getPoint())) {
                 if (menuButtonClicked) {
-                    clickSound.loadMusic(CLICK_MUSIC);
+                    clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
 
                     MenuPanel.stopDrawingMenu();
                     panel.removeAll();
@@ -111,7 +103,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 }
             }
             if (panel.getMenuPanel().getQuitButton().contains(e.getPoint())) {
-                clickSound.loadMusic(CLICK_MUSIC);
+                clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
                 System.exit(0);
             }
 
@@ -119,12 +111,12 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         if (Main.state == Main.STATE.COMPLETE) {
             if (panel.getLastMenuHitbox().contains(e.getPoint())) {
                 panel.uiAni.isHover = false;
-                clickSound.loadMusic(CLICK_MUSIC);
+                clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
                 panel.getMain().updateState(Main.STATE.MENU);
 
             }
             if (panel.getLastQuitHitbox().contains(e.getPoint())) {
-                clickSound.loadMusic(CLICK_MUSIC);
+                clickSound.loadMusic(MusicMethods.CLICK_MUSIC);
                 System.exit(0);
             }
         }
