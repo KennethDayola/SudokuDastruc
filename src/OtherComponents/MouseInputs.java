@@ -1,16 +1,12 @@
 package OtherComponents;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.concurrent.ExecutionException;
 
 import Main.Main;
 import Main.Panel;
 import Main.MenuPanel;
-
-import javax.swing.*;
 
 import static OtherComponents.MusicMethods.HOVER_MUSIC;
 import static OtherComponents.MusicMethods.CLICK_MUSIC;
@@ -21,6 +17,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     private MenuPanel menuPanel;
     private MusicMethods hoverSound = new MusicMethods();
     private MusicMethods clickSound = new MusicMethods();
+    private boolean menuButtonClicked = false;
 
     public MouseInputs(Panel panel, MenuPanel menuPanel) {
         this.panel = panel;
@@ -49,16 +46,19 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             }
         } else if (Main.state == Main.STATE.MENU)
             if (panel.getMenuPanel().getPlayButton().contains(e.getX(), e.getY())) {
+                menuButtonClicked = true;
                 MenuPanel.isHovering = false;
                 MenuPanel.isHovering = true;
                 MenuPanel.buttonType = "menuPlay";
                 hoverSound.loadMusic(HOVER_MUSIC);
             }else if( panel.getMenuPanel().getQuitButton().contains(e.getX(), e.getY())){
+                menuButtonClicked = false;
                 MenuPanel.isHovering = false;
                 MenuPanel.isHovering = true;
                 MenuPanel.buttonType = "menuQuit";
                 hoverSound.loadMusic(HOVER_MUSIC);
             }else {
+                menuButtonClicked = false;
                 MenuPanel.isHovering = false;
                 hoverSound.setMusicLoaded(false);
             }
@@ -97,34 +97,18 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
         if (Main.state == Main.STATE.MENU) {
             if (panel.getMenuPanel().getPlayButton().contains(e.getPoint())) {
-                clickSound.loadMusic(CLICK_MUSIC);
-                SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-                    @Override
-                    protected Void doInBackground() throws Exception {
-                        // Perform loading tasks here
-                        MenuPanel.stopDrawingMenu();
-                        panel.removeAll();
-                        panel.getMain().updateState(Main.STATE.GAME);
+                if (menuButtonClicked) {
+                    clickSound.loadMusic(CLICK_MUSIC);
 
-                        panel.bgm.stop();
-                        panel.bgm.loadMusic(MusicMethods.GAME_MUSIC);
+                    MenuPanel.stopDrawingMenu();
+                    panel.removeAll();
+                    panel.getMain().updateState(Main.STATE.GAME);
 
-                        return null;
-                    }
+                    panel.bgm.stop();
+                    panel.bgm.loadMusic(MusicMethods.GAME_MUSIC);
 
-                    @Override
-                    protected void done() {
-                        // This is called on the EDT after doInBackground completes
-                        try {
-                            get();  // Retrieve any exceptions that might have occurred
-                        } catch (InterruptedException | ExecutionException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                };
-
-                // Execute the SwingWorker
-                worker.execute();
+                    menuButtonClicked = false;
+                }
             }
             if (panel.getMenuPanel().getQuitButton().contains(e.getPoint())) {
                 clickSound.loadMusic(CLICK_MUSIC);
@@ -134,8 +118,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         }
         if (Main.state == Main.STATE.COMPLETE) {
             if (panel.getLastMenuHitbox().contains(e.getPoint())) {
+                panel.uiAni.isHover = false;
                 clickSound.loadMusic(CLICK_MUSIC);
                 panel.getMain().updateState(Main.STATE.MENU);
+
             }
             if (panel.getLastQuitHitbox().contains(e.getPoint())) {
                 clickSound.loadMusic(CLICK_MUSIC);

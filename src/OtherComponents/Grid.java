@@ -32,21 +32,17 @@ public class Grid {
                 int y = panel.getPlayingRect().y + i * cellSizeY + cellSizeY / 2 + 5;
 
                 if (board[i][j] != 0) {
-                    // Set font properties for bold numbers
                     Font font = new Font("Comic Sans MS", Font.BOLD, 25);
                     g2d.setFont(font);
                     g2d.setColor(new Color(139, 69, 19));
 
-                    // Draw the number from the board array
                     String number = Integer.toString(board[i][j]);
                     g2d.drawString(number, x - g2d.getFontMetrics().stringWidth(number) / 2, y + 5);
                 } else {
-                    // Find the existing JTextField for this cell, if any
                     JTextField existingTextField = findTextField(panel.getTextFields(), i, j, panel);
 
 
                     if (existingTextField == null) {
-                        // Draw placeholder text field only if it doesn't exist
                         JTextField textField = new JTextField();
                         textField.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
                         textField.setForeground(new Color(139, 69, 19));
@@ -122,26 +118,22 @@ public class Grid {
                     panel.uiAni.isHover = false;
                     panel.getMain().updateState(Main.STATE.COMPLETE);}
             } else {
-                System.out.println("Invalid input! Try again.");
+                Animations.showInvalidImg = true;
                 textField.setText("");
             }
         } else {
-            System.out.println("Invalid input format! Try again.");
+            Animations.showInvalidImg = true;
             textField.setText("");
         }
     }
     public static void removeTextFieldsAtTop(List<JTextField> textFields, Panel p) {
-        // Create a list to store text fields to be removed
         List<JTextField> textFieldsToRemove = new ArrayList<>();
 
-        // Define the maximum y-coordinate for text fields to be considered at the top
         int maxYForRemoval = p.getPlayingRect().y;
 
-        // Iterate through text fields and identify those at the top
         for (JTextField textField : textFields) {
             int textFieldY = textField.getY() + textField.getHeight() / 2;
 
-            // Check if the text field is above the maxYForRemoval
             if (textFieldY < maxYForRemoval) {
                 textFieldsToRemove.add(textField);
             }

@@ -1,6 +1,5 @@
 package Main;
 
-import OtherComponents.Animations;
 import OtherComponents.MouseInputs;
 
 import javax.swing.*;
@@ -40,10 +39,10 @@ public class MenuPanel {
     public static void displayHover() {
 
         if (isHovering && !imageLabelInitialized) {
-            if (buttonType == "menuPlay") {
+            if (buttonType.equals("menuPlay")) {
                 imageLabel.setBounds(645, 350, 100, 100);
             }
-            if (buttonType == "menuQuit") {
+            if (buttonType.equals("menuQuit")) {
                 imageLabel.setBounds(1022, 350, 100, 100);
             }
             p.add(imageLabel);

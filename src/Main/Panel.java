@@ -19,6 +19,8 @@ public class Panel extends JPanel {
     private MenuPanel menuPanel;
 
     public static MusicMethods bgm = new MusicMethods();
+    public static MusicMethods successSound = new MusicMethods();
+    public static MusicMethods wrongSound = new MusicMethods();
     public Animations uiAni = new Animations(this);
 
     public Panel(Main main) {
@@ -31,7 +33,6 @@ public class Panel extends JPanel {
         this.menuPanel = new MenuPanel(this);
         addMouseListener(mouseInputs);
         addMouseMotionListener(mouseInputs);
-
     }
 
 
@@ -43,6 +44,8 @@ public class Panel extends JPanel {
         lastMenuHitbox = new Rectangle(500, 398, 260, 67);
         lastQuitHitbox = new Rectangle(560, 490, 142, 51);
         uiAni.loadUiAni(Animations.HOVER_CIRCLING);
+        Animations.loadInvalidImg();
+        Animations.initInvalidImgTimer();
     }
 
     @Override
@@ -61,9 +64,11 @@ public class Panel extends JPanel {
             g2d.setColor(Color.RED);
             g2d.draw(playingRect);
 
+
             Grid.drawGrid(g, this, Sudocode.board6x6);
             removeTextFieldsAtTop(textFields, this);
             uiAni.showHover(g);
+            Animations.drawInvalidImg(g);
 
         } else if (main.getState() == Main.STATE.MENU) {
             bgm.loadMusic(MusicMethods.MENU_MUSIC);
@@ -74,6 +79,8 @@ public class Panel extends JPanel {
         else if(main.getState() == Main.STATE.COMPLETE){
             bgm.stop();
             this.removeAll();
+            successSound.loadMusic(MusicMethods.SUCCESS_MUSIC);
+            Sudocode.resetBoard();
             ImageIcon lastBgIcon = new ImageIcon(getClass().getResource("/res/completed.png"));
             Image background = lastBgIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
@@ -81,9 +88,8 @@ public class Panel extends JPanel {
             uiAni.showHover(g);
         }
     }
-    public void clearTextFields() {
-        textFields.forEach(field -> field.setText(""));
-    }
+
+    public void clearTextFields() { textFields.forEach(field -> field.setText("")); }
     public Main getMain() {
         return main;
     }
@@ -105,11 +111,9 @@ public class Panel extends JPanel {
     public Rectangle getQuitHitbox() {
         return quitHitbox;
     }
-    // Add a method to get the MenuPanel instance
     public MenuPanel getMenuPanel() {
         return menuPanel;
     }
-
     public List<JTextField> getTextFields() {
         return (List<JTextField>) textFields;
     }

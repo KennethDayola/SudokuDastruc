@@ -1,5 +1,7 @@
 package OtherComponents;
 
+import Main.Panel;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -43,14 +45,20 @@ public class TextFieldInputChecker implements DocumentListener {
                 if (isValid6x6(row, col, number)) {
                     board[row][col] = number;
                 } else {
-                    // Handle invalid input (e.g., display a message)
-                    System.out.println("Invalid input! Try again.");
-                    SwingUtilities.invokeLater(() -> textField.setText("")); // Clear the text field
+                    Animations.showInvalidImg = true;
+                    SwingUtilities.invokeLater(() -> {
+                        textField.setText("");
+                    });
+                    textField.getParent().repaint();
+                    Panel.wrongSound.loadMusic(MusicMethods.WRONG_MUSIC);
                 }
             } else {
-                // Handle invalid input format (e.g., display a message)
-                System.out.println("Invalid input format! Try again.");
-                SwingUtilities.invokeLater(() -> textField.setText("")); // Clear the text field
+                Animations.showInvalidImg = true;
+                SwingUtilities.invokeLater(() -> {
+                    textField.setText("");
+                    Panel.wrongSound.loadMusic(MusicMethods.WRONG_MUSIC);
+                });
+                textField.getParent().repaint();
             }
         } catch (BadLocationException ex) {
             ex.printStackTrace();
@@ -58,30 +66,26 @@ public class TextFieldInputChecker implements DocumentListener {
     }
 
     static boolean isValidInput(String input) {
-        // Check if the input is a valid integer
         try {
             int number = Integer.parseInt(input);
-            return number >= 1 && number <= 6; // Adjust the range based on your requirements
+            return number >= 1 && number <= 6;
         } catch (NumberFormatException e) {
             return false;
         }
     }
     private boolean isValid6x6(int row, int col, int num) {
-        // Check if the number already exists in the same row
         for (int j = 0; j < 6; j++) {
             if (board[row][j] == num && j != col) {
                 return false;
             }
         }
 
-        // Check if the number already exists in the same column
         for (int i = 0; i < 6; i++) {
             if (board[i][col] == num && i != row) {
                 return false;
             }
         }
 
-        // Check if the number already exists in the same 2x3 box
         int boxRow = (row / 2) * 2;
         int boxCol = (col / 3) * 3;
         for (int i = boxRow; i < boxRow + 2; i++) {
