@@ -1,5 +1,6 @@
 package OtherComponents;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -25,6 +26,55 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
         this.panel = panel;
         this.menuPanel = menuPanel;
     }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if (Main.state == Main.STATE.GAME) {
+            if (panel.getRetryHitbox().contains(e.getX(), e.getY())) {
+                panel.uiAni.setHover(true,"Retry");
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else if (panel.getMenuHitbox().contains(e.getX(), e.getY())) {
+                panel.uiAni.setHover(true,"Menu");
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else if (panel.getQuitHitbox().contains(e.getX(), e.getY())) {
+                panel.uiAni.setHover(true,"Quit");
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else {
+                panel.uiAni.isHover = false;
+                hoverSound.setMusicLoaded(false);
+            }
+        } else if (Main.state == Main.STATE.MENU)
+            if (panel.getMenuPanel().getPlayButton().contains(e.getX(), e.getY())) {
+                MenuPanel.isHovering = false;
+                MenuPanel.isHovering = true;
+                MenuPanel.buttonType = "menuPlay";
+                hoverSound.loadMusic(HOVER_MUSIC);
+            }else if( panel.getMenuPanel().getQuitButton().contains(e.getX(), e.getY())){
+                MenuPanel.isHovering = false;
+                MenuPanel.isHovering = true;
+                MenuPanel.buttonType = "menuQuit";
+                hoverSound.loadMusic(HOVER_MUSIC);
+            }else {
+                MenuPanel.isHovering = false;
+                hoverSound.setMusicLoaded(false);
+            }
+        if (Main.state == Main.STATE.COMPLETE) {
+            if (panel.getLastMenuHitbox().contains(e.getX(), e.getY())) {
+                panel.uiAni.setHover(true,"lastMenu");
+                hoverSound.loadMusic(HOVER_MUSIC);
+            } else if(panel.getLastQuitHitbox().contains(e.getX(), e.getY())){
+                panel.uiAni.setHover(true,"lastQuit");
+                hoverSound.loadMusic(HOVER_MUSIC);
+            }else {
+                panel.uiAni.isHover = false;
+                hoverSound.setMusicLoaded(false);
+            }
+        }
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -34,6 +84,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
                 panel.clearTextFields();
             }
             if (panel.getMenuHitbox().contains(e.getPoint())) {
+                panel.uiAni.isHover = false;
                 clickSound.loadMusic(CLICK_MUSIC);
                 panel.bgm.stop();
                 panel.bgm.loadMusic(MusicMethods.MENU_MUSIC);
@@ -81,7 +132,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             }
 
         }
-        if (Main.state == Main.STATE.COMPLETE){
+        if (Main.state == Main.STATE.COMPLETE) {
             if (panel.getLastMenuHitbox().contains(e.getPoint())) {
                 clickSound.loadMusic(CLICK_MUSIC);
                 panel.getMain().updateState(Main.STATE.MENU);
@@ -92,6 +143,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
             }
         }
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
     }
@@ -108,34 +160,5 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        if (Main.state == Main.STATE.GAME) {
-            if (panel.getRetryHitbox().contains(e.getX(), e.getY()) || panel.getMenuHitbox().contains(e.getX(), e.getY()) || panel.getQuitHitbox().contains(e.getX(), e.getY())) {
-                hoverSound.loadMusic(HOVER_MUSIC);
-            } else {
-                hoverSound.setMusicLoaded(false);
-            }
-        }
-        else if (Main.state == Main.STATE.MENU)
-            if (panel.getMenuPanel().getPlayButton().contains(e.getX(), e.getY()) || panel.getMenuPanel().getQuitButton().contains(e.getX(), e.getY())) {
-                hoverSound.loadMusic(HOVER_MUSIC);
-            } else {
-                hoverSound.setMusicLoaded(false);
-            }
-            if (Main.state == Main.STATE.COMPLETE) {
-            if (panel.getLastMenuHitbox().contains(e.getX(), e.getY()) || panel.getLastQuitHitbox().contains(e.getX(), e.getY())){
-                hoverSound.loadMusic(HOVER_MUSIC);
-            } else {
-                hoverSound.setMusicLoaded(false);
-            }
-        }
-        }
-    }
+}
 

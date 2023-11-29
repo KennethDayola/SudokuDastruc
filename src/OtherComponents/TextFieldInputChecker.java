@@ -34,7 +34,7 @@ public class TextFieldInputChecker implements DocumentListener {
     @Override
     public void changedUpdate(DocumentEvent e) {}
 
-    private void updateBoard() {
+    void updateBoard() {
         Document document = textField.getDocument();
         try {
             String input = document.getText(0, document.getLength());

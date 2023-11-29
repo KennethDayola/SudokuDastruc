@@ -1,11 +1,13 @@
 package Main;
 
+import OtherComponents.Animations;
 import OtherComponents.MouseInputs;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class MenuPanel {
 
@@ -13,10 +15,13 @@ public class MenuPanel {
     private static final Rectangle quitButton = new Rectangle((int) (Main.WIDTH_DEFAULT * 0.705), 420, 290, 117);
     private static Panel p;
 
-    // New variables for GIF
     private static JLabel gifLabel;
     private static Timer gifTimer;
+    private static JLabel imageLabel = new JLabel();
+    private static boolean imageLabelInitialized = false;
 
+    public static boolean isHovering = false;
+    public static String buttonType = new String();
 
 
     public MenuPanel(Panel panel) {
@@ -25,12 +30,29 @@ public class MenuPanel {
         MouseInputs mouseInputs = new MouseInputs(p, this);
 
         p.addMouseListener(mouseInputs);
-
         initGifTimer();
     }
 
     private void menuStart() {
         p.setFocusable(true);
+    }
+
+    public static void displayHover() {
+
+        if (isHovering && !imageLabelInitialized) {
+            if (buttonType == "menuPlay") {
+                imageLabel.setBounds(645, 350, 100, 100);
+            }
+            if (buttonType == "menuQuit") {
+                imageLabel.setBounds(1022, 350, 100, 100);
+            }
+            p.add(imageLabel);
+            imageLabelInitialized = true;
+        }
+        else if (!isHovering){
+            p.remove(imageLabel);
+            imageLabelInitialized = false;
+        }
     }
 
     public static void drawMenu(Graphics g) {
@@ -40,19 +62,18 @@ public class MenuPanel {
             g2d.setColor(Color.BLACK);
             g2d.fillRect(0, 0, p.getWidth(), p.getHeight());
 
-            if (gifLabel != null) {
-                gifLabel.setBounds(0, 0, p.getWidth(), p.getHeight());
-                p.add(gifLabel);
-            }
+            gifLabel.setBounds(0, 0, p.getWidth(), p.getHeight());
+            p.add(gifLabel);
+            displayHover();
+            loadArrowHover();
         }
     }
 
-    public static Rectangle getPlayButton() {
-        return playButton;
-    }
-
-    public Rectangle getQuitButton() {
-        return quitButton;
+    private static void loadArrowHover(){
+        ImageIcon imageIcon = new ImageIcon(Objects.requireNonNull(MenuPanel.class.getResource("/res/arrow.png")));
+        Image image = imageIcon.getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(image);
+        imageLabel.setIcon(imageIcon);
     }
 
     public static void stopDrawingMenu() {
@@ -74,5 +95,12 @@ public class MenuPanel {
         });
 
         gifTimer.start();
+    }
+
+    public static Rectangle getPlayButton() {
+        return playButton;
+    }
+    public Rectangle getQuitButton() {
+        return quitButton;
     }
 }

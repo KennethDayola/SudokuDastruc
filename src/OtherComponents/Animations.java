@@ -1,66 +1,93 @@
 package OtherComponents;
 
-import Main.MenuPanel;
 import Main.Panel;
-import Main.Main;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-
-
 public class Animations {
-    public JLabel gifLabel;
-    public Timer gifTimer;
     public boolean isHover = false;
     private Panel p;
-
-    public static final String HOVER_ARROW = "/res/hoverArrow.png";
-    public static final String MENU_BG = "/res/sudokuMenu.gif";
-    public ImageIcon gifIcon;
-    public BufferedImage hoverArrow;
+    public static final String HOVER_CIRCLING = "/res/hoverAni.png";
+    public BufferedImage animation;
+    private int currentFrame = 0;
+    private int frameWidth = 480;
+    private int frameDelay = 1;
+    private String hitboxType;
+    private int destX, destY;
 
     public Animations(Panel panel) {
         this.p = panel;
 
     }
 
-    public void initGifTimer(String filePath) {
-        gifLabel = new JLabel();
-        gifTimer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gifIcon = new ImageIcon(MenuPanel.class.getResource(filePath));
-                gifLabel.setIcon(gifIcon);
-            }
-        });
-
-        gifTimer.start();
-    }
-
-    public void loadUiAni() {
+    public void loadUiAni(String filePath) {
         try {
-            InputStream inputStream = Panel.class.getResourceAsStream(HOVER_ARROW);
-            hoverArrow = ImageIO.read(inputStream);
+            InputStream inputStream = Panel.class.getResourceAsStream(filePath);
+            animation = ImageIO.read(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
             // Handle the exception or return a default image
         }
     }
 
-    public void showMenuBg() {
-        initGifTimer(MENU_BG);
-        gifLabel.setBounds(0, 0, p.getWidth(), p.getHeight());
-        p.add(gifLabel);
+    public void setHover(boolean hover, String hitbox) {
+        this.hitboxType = hitbox;
+        this.isHover = hover;
+        p.repaint();
     }
 
     public void showHover(Graphics g) {
+        if (isHover && animation != null) {
+            int frameCount = animation.getWidth() / frameWidth;
+
+            int frameX = currentFrame * frameWidth;
+
+            destX = 0;
+            destY = 0;
+            int destHeight = 90; // Adjust this value to set the desired height
+            int destWidth = (int) ((double) destHeight / animation.getHeight() * frameWidth);
+
+            switchHitbox();
+
+            g.drawImage(animation, destX, destY, destX + destWidth, destY + destHeight,
+                    frameX, 0, frameX + frameWidth, animation.getHeight(), p);
+
+            if (System.currentTimeMillis() % frameDelay == 0) {
+                currentFrame = (currentFrame + 1) % frameCount;
+            }
+
+            p.repaint();
+        }
+    }
+
+    private void switchHitbox(){
+        switch (hitboxType){
+            case "Retry":
+                destX = 375;
+                destY = 205;
+                break;
+            case "Menu":
+                destX = 375;
+                destY = 305;
+                break;
+            case "Quit":
+                destX = 375;
+                destY = 410;
+                break;
+            case "lastMenu":
+                destX = 770;
+                destY = 390;
+                break;
+            case "lastQuit":
+                destX = 715;
+                destY = 475;
+                break;
+        }
+
     }
 }
 
