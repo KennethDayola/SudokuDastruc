@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Animations
+comment1.params=panel
+comment1.target=Animations(Panel)
+comment2.params=filePath
+comment2.target=void\ loadUiAni(java.lang.String)
+comment3.params=
+comment3.target=void\ loadInvalidImg()
+comment4.params=g
+comment4.target=void\ drawInvalidImg(java.awt.Graphics)
+comment5.params=hover\ hitbox
+comment5.target=void\ setHover(boolean,\ java.lang.String)
+comment6.params=g
+comment6.target=void\ showHover(java.awt.Graphics)
+comment7.params=
+comment7.target=void\ initInvalidImgTimer()
+comment8.params=
+comment8.target=void\ switchHitbox()
+numComments=9

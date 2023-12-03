@@ -1,3 +1,5 @@
+package src;
+
 public class Sudocode {
 
     public static int[][] board6x6 = {

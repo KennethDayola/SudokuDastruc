@@ -1,8 +1,9 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Panel extends JPanel {
 
@@ -50,7 +51,7 @@ public class Panel extends JPanel {
     private void drawComponents(Graphics g) {
         if (main.getState() == Main.STATE.GAME) {
             Graphics2D g2d = (Graphics2D) g;
-            ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/background.png"));
+            ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("background.png"));
             Image background = backgroundIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 
@@ -74,7 +75,7 @@ public class Panel extends JPanel {
             this.removeAll();
             successSound.loadMusic(MusicMethods.SUCCESS_MUSIC);
             Sudocode.resetBoard();
-            ImageIcon lastBgIcon = new ImageIcon(getClass().getResource("/completed.png"));
+            ImageIcon lastBgIcon = new ImageIcon(getClass().getResource("completed.png"));
             Image background = lastBgIcon.getImage();
             g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
             this.repaint();

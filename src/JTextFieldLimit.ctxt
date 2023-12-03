@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=JTextFieldLimit
+comment1.params=limit
+comment1.target=JTextFieldLimit(int)
+comment2.params=offset\ str\ attr
+comment2.target=void\ insertString(int,\ java.lang.String,\ javax.swing.text.AttributeSet)
+numComments=3

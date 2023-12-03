@@ -1,3 +1,5 @@
+package src;
+
 public class Main {
     public static final int WIDTH_DEFAULT = 1280;
     public static final int HEIGHT_DEFAULT = 720;
